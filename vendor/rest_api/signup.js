@@ -10,7 +10,10 @@ $signupform.on("submit", function(event){
         data: JSON.parse(JSON.stringify($signupform.serialize())),
         crossDomain: true,
         success: function (data, textStatus, jqXHR) {
-            console.log("Success");
+            Cookies.set('username', data.username);
+            Cookies.set('token', data.token);
+            Cookies.set('account_type', data.account_type);
+            window.location.href = "/";
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error");
