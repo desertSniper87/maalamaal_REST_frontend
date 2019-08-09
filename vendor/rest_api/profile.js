@@ -1,13 +1,7 @@
 let $signupButton = $('#signupButton');
 let $loginButton = $('#loginButton');
 let $logoutButton = $('#logoutButton');
-
 let $welcomeUsername = $('#welcomeUsername');
-let $itemUploadForm = $('#itemUploadForm');
-
-let $uploadBtn = $('#uploadBtn');
-let categorySelectTemplateHtml= $('#categorySelectTemplate').html();
-let $categorySelect = $('#categorySelect');
 
 let token = Cookies.get('token');
 let username = Cookies.get('username');
@@ -20,11 +14,16 @@ if (token != null ) {
     $welcomeUsername.text(username);
 } else {
     console.log('User not logged in');
-    window.location.href = "/signup.html"
+    window.location.href = "/sign-up.html"
 }
 
+let $itemUploadForm = $('#itemUploadForm');
+let $uploadBtn = $('#uploadBtn');
+let categorySelectTemplateHtml= $('#categorySelectTemplate').html();
+let $categorySelect = $('#categorySelect');
+
+// Query for categories.
 $uploadBtn.click(function(envent){
-    console.log("Click");
     $.ajax({
         url: config.backend_url + "/product_categories/",
         method: "GET",
@@ -44,16 +43,54 @@ $uploadBtn.click(function(envent){
 
 });
 
+
+// Upload object information.
 $itemUploadForm.submit(function(event){
     event.preventDefault();
     console.log("submit");
 
+    let $formImageInput = $('#inputImage');
+    let formData = new FormData();
+    let imageData = $formImageInput[0].files[0];
+    formData.append('image', imageData);
+    
+    $itemUploadForm.serializeArray().forEach(
+        function(element){
+            formData.append(element.name, element.value)
+    });
+     
+
     $.ajax({
         url: config.backend_url + "/products/",
         method: "POST",
-        dataType: "json",
-        data: JSON.parse(JSON.stringify($itemUploadForm.serialize())),
+        data: formData,
+
+        cache: false,
+        contentType: false,
+        processData: false,
+
         crossDomain: true,
+
+         // Custom XMLHttpRequest
+        xhr: function () {
+          var myXhr = $.ajaxSettings.xhr();
+          if (myXhr.upload) {
+            // For handling the progress of the upload
+            myXhr.upload.addEventListener('progress', function (e) {
+              if (e.lengthComputable) {
+                $('progress').attr({
+                  value: e.loaded,
+                  max: e.total,
+                });
+              }
+            }, false);
+          }
+          return myXhr;
+        },
+
+        headers: {
+            "Authorization": "Token " + Cookies.get('token'),
+        },
         success: function (data, textStatus, jqXHR) {
             console.log("Success");
         },
