@@ -29,8 +29,6 @@ $uploadBtn.click(function(envent){
         method: "GET",
         crossDomain: true,
         success: function (data, textStatus, jqXHR) {
-            console.log("Success");
-            console.log(data);
             html = Mustache.to_html(categorySelectTemplateHtml, {data: data.results});
             $categorySelect.append(html);
         },
