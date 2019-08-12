@@ -44,7 +44,9 @@
             <a class="nav-link" href="login.html">Login</a>
           </li>
           <li class="nav-item d-none" id="logoutButton">
-            <a class="nav-link" href="logout.html">Log Out</a>
+              <a class="nav-link" href="">Log Out 
+                  <span id="navUsername"></span> (<span id="navAccountType"></span>)
+              </a>
           </li>
         </ul>
       </div>
@@ -133,9 +135,11 @@
                 <h6>Seller: {{seller}}</h6>
                 <p class="card-text">{{description}}</p>
               </div>
-              <!--<div class="card-footer">-->
+              <div class="card-footer">
+                <button type="button" id="btnProductDetails" class="btn btn-secondary">Details</button>
+                <button type="button" id="btnBuyOne" class="btn btn-primary">Buy 1</button>
                 <!--<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>-->
-              <!--</div>-->
+              </div>
             </div>
           </div>
         {{/data}}
@@ -151,7 +155,10 @@
   <!--js cookie-->
   <script src="vendor/js-cookie/js.cookie.js"></script>
   <!--Extra JavaScript For Index-->
+  <script src="vendor/rest_api/navbarUpdate.js"></script>
   <script src="vendor/rest_api/index.js"></script>
+  <!--Miscellaneous-->
+  <script src="vendor/rest_api/logout.js"></script>
 
 </body>
 

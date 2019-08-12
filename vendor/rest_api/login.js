@@ -1,13 +1,13 @@
-$signupform = $('#signupForm');
+$loginform = $('#loginForm');
 
-$signupform.on("submit", function(event){
+$loginform.on("submit", function(event){
     event.preventDefault();
 
     $.ajax({
-        url: config.backend_url + "/users/",
+        url: config.backend_url + "/login/",
         method: "POST",
         dataType: "json",
-        data: JSON.parse(JSON.stringify($signupform.serialize())),
+        data: JSON.parse(JSON.stringify($loginform.serialize())),
         crossDomain: true,
         success: function (data, textStatus, jqXHR) {
             console.log(data);

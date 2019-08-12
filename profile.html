@@ -25,19 +25,19 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Sample eCommerce FrontEnd</a>
+        <a class="navbar-brand" href="/">Sample eCommerce FrontEnd</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/">Home
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home </a>
+            </li>
+            <li class="nav-item active" id="profileButton">
+              <a class="nav-link" href="#">Profile
                 <span class="sr-only">(current)</span>
               </a>
-            </li>
-            <li class="nav-item" id="profileButton">
-              <a class="nav-link" href="#">Profile</a>
             </li>
             <li class="nav-item" id="signupButton">
               <a class="nav-link" href="sign-up.html">Sign Up</a>
@@ -46,7 +46,9 @@
               <a class="nav-link" href="login.html">Login</a>
             </li>
             <li class="nav-item d-none" id="logoutButton">
-              <a class="nav-link" href="logout.html">Log Out</a>
+                <a class="nav-link" href="">Log Out 
+                    <span id="navUsername"></span> (<span id="navAccountType"></span>)
+                </a>
             </li>
           </ul>
         </div>
@@ -62,10 +64,10 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-9 col-lg-8 mx-auto">
-                    <h3 class="login-heading mb-4">Welcome back! <span id="welcomeUsername">mynoko</span></h3>
+                    <h3 class="login-heading mb-4">Welcome to E-Commerce! <span id="welcomeUsername">mynoko</span></h3>
                   <!--<button class="btn btn-primary" id="uploadBtn">Upload New Item</button>-->
                   <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary" id="uploadBtn" data-toggle="modal" data-target="#uploadFormModal">
+                  <button type="button" class="btn btn-primary d-none" id="uploadBtn" data-toggle="modal" data-target="#uploadFormModal">
                     Upload New Item
                   </button>
 
@@ -149,7 +151,10 @@
     <!--js cookie-->
     <script src="vendor/js-cookie/js.cookie.js"></script>
     <!--Extra JavaScript For Profile-->
+    <script src="vendor/rest_api/navbarUpdate.js"></script>
     <script src="vendor/rest_api/profile.js"></script>
+    <!--Miscellaneous-->
+    <script src="vendor/rest_api/logout.js"></script>
 
   </body>
 

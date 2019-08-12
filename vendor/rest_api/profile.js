@@ -1,26 +1,13 @@
-let $signupButton = $('#signupButton');
-let $loginButton = $('#loginButton');
-let $logoutButton = $('#logoutButton');
-let $welcomeUsername = $('#welcomeUsername');
-
-let token = Cookies.get('token');
-let username = Cookies.get('username');
-
-if (token != null ) {
-    console.log('User logged in as ' + username);
-    $signupButton.hide();
-    $loginButton.hide();
-    $logoutButton.removeClass('d-none');
-    $welcomeUsername.text(username);
-} else {
-    console.log('User not logged in');
-    window.location.href = "/sign-up.html"
-}
-
 let $itemUploadForm = $('#itemUploadForm');
 let $uploadBtn = $('#uploadBtn');
 let categorySelectTemplateHtml= $('#categorySelectTemplate').html();
 let $categorySelect = $('#categorySelect');
+
+$(document).ready(function(){
+    if (account_type == "seller") {
+        $uploadBtn.removeClass("d-none");
+    }
+});
 
 // Query for categories.
 $uploadBtn.click(function(envent){
