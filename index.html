@@ -37,6 +37,9 @@
           <li class="nav-item" id="profileButton">
             <a class="nav-link" href="profile.html">Profile</a>
           </li>
+          <li class="nav-item d-none" id="cartButton">
+              <a class="nav-link" href="#">Cart<span id="itemCartSize"></span></a>
+          </li>
           <li class="nav-item" id="signupButton">
             <a class="nav-link" href="sign-up.html">Sign Up</a>
           </li>
@@ -54,12 +57,61 @@
   </nav>
 
   <!-- Page Content -->
+  <!--Item details popup modal-->
+  <div class="modal fade" id="productDetailsModal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="uploadFormModalTitle">Item Details</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <form id="cartCreationForm">
+                  <div class="modal-body">
+                      <a href=""><img class="card-img-top" id="productDetailsCardImage" src="" alt=""></a>
+                      <h5 id="modalProductName"></h4>
+                      <h6 id="modalProductPrice"></h5>
+                      <h6 id="modalProductSeller"></h6>
+                      <h6 id="modalAvailableQuantity"></h6>
+                      <p id="modalProductDesc"></p>
+                      <input name="product" type="url" id="modalInputProductUrl" hidden="True">
+ <div class="form-group form-inline">
+                      <label for="quantity">Quantity</label>
+                      <input name="quantity" type="number" min="1" max="9999" step="1" id="modalInputQuantity" class="form-control" placeholder="Quantity" required autofocus>
+ </div>
+                      <h6 id="modalTotalCostText" class="d-none">Total Cost: <span id="modalTotalPrice">0.00</span> Taka</h6>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button submit" class="btn btn-primary">Add to Cart</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+  <!--Cart details popup modal-->
+  <div class="modal fade" id="cartDetailsModal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="uploadFormModalTitle">Cart</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body" id="cartDetailModalBody"></div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary btnChkout">Checkout</button>
+              </div>
+
+          </div>
+      </div>
+  </div>
   <div class="container">
-
     <div class="row">
-
       <div class="col-lg-3">
-
         <h1 class="my-4">Shop Name</h1>
         <div class="list-group">
           <a href="#" class="list-group-item">Category 1</a>
@@ -100,11 +152,23 @@
         <!--</div>-->
 
         <div class="row my-4" id="productList">
-          <!--prodcuct card location-->
-        </div>
+          <!-- IMPORTANT prodcuct card location-->
+
         <!-- /.row -->
 
       </div>
+      <!--Show spinner if REST server loading-->
+      <div id="loadingSpinner" class="text-center">
+        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+
+      <!--Alert message if server problem-->
+      <div id="serverErrorMsg" class="alert alert-danger" role="alert">
+        <strong>Error </strong> REST server down
+      </div>
+
       <!-- /.col-lg-9 -->
 
     </div>
@@ -122,28 +186,54 @@
   </footer>
 
   <!--Mustache HTML Templates-->
+  <!--Template for product list-->
   <script type="text/template" id="productCardTemplate">
       {{#data}}
           <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
+            <div class="card h-100 data-itemId={{id}}" >
               <a href="{{image}}"><img class="card-img-top" src="{{image}}" alt=""></a>
               <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">{{name}}</a>
+                <h4 data-itemId="{{id}}" class="card-title btnProductDetails">
+                  <a href="">{{name}}</a>
                 </h4>
-                <h5>Taka {{price_taka}}</h5>
-                <h6>Seller: {{seller}}</h6>
-                <p class="card-text">{{description}}</p>
+                <h5 class="cardPrice" value="{{price_taka}}">Taka {{price_taka}}</h5>
+                <h6 class="cardItemSeller" value="{{seller}}">Seller: {{seller}}</h6>
+                <p class="card-text cardDesc" value="{{description}}">{{description}}</p>
               </div>
               <div class="card-footer">
-                <button type="button" id="btnProductDetails" class="btn btn-secondary">Details</button>
-                <button type="button" id="btnBuyOne" class="btn btn-primary">Buy 1</button>
+                <button type="button" data-itemId="{{id}}" class="btn btn-secondary btnProductDetails">Details</button>
+                <!--<button type="button" id="btnBuyOne" class="btn btn-primary">Buy 1</button>-->
                 <!--<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>-->
               </div>
             </div>
           </div>
         {{/data}}
    </script>
+   <!--Template for cart-->
+   <script type="text/template" id="cartTemplate">
+           <table class="table">
+             <thead class="thead-dark">
+               <tr>
+                 <th scope="col">#</th>
+                 <th scope="col">Product Name</th>
+                 <th scope="col">Quantity</th>
+                 <th scope="col">Price Per Unit</th>
+                 <th scope="col">Price</th>
+               </tr>
+             </thead>
+             <tbody>
+               {{#data}}
+                   <tr>
+                     <th scope="row">{{idx}}</th>
+                     <td>{{product_name}}</td>
+                     <td>{{quantity}}</td>
+                     <td>{{price_per_unit}}</td>
+                     <td>{{total}}</td>
+                   </tr>
+               {{/data}}
+             </tbody>
+           </table>
+    </script>
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
