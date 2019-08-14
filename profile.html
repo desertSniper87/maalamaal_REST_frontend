@@ -17,6 +17,7 @@
     <link href="css/shop-homepage.css" rel="stylesheet">
     <!--Temporary stylesheet from signup page-->
     <link href="css/signup.css" rel="stylesheet">
+    <link href="css/profile.css" rel="stylesheet">
 
   </head>
 
@@ -46,9 +47,9 @@
               <a class="nav-link" href="login.html">Login</a>
             </li>
             <li class="nav-item d-none" id="logoutButton">
-                <a class="nav-link" href="">Log Out 
-                    <span id="navUsername"></span> (<span id="navAccountType"></span>)
-                </a>
+              <a class="nav-link" href="">Log Out 
+                <span id="navUsername"></span> (<span id="navAccountType"></span>)
+              </a>
             </li>
           </ul>
         </div>
@@ -60,67 +61,61 @@
       <div class="row no-gutter">
         <!--<div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>-->
         <div class="col-md-8 col-lg-6">
-          <div class="login d-flex align-items-center py-5">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-9 col-lg-8 mx-auto">
-                    <h3 class="login-heading mb-4">Welcome to E-Commerce! <span id="welcomeUsername">mynoko</span></h3>
-                  <!--<button class="btn btn-primary" id="uploadBtn">Upload New Item</button>-->
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary d-none" id="uploadBtn" data-toggle="modal" data-target="#uploadFormModal">
-                    Upload New Item
-                  </button>
-
-                  <!-- Modal -->
-                  <div class="modal fade" id="uploadFormModal" tabindex="-1" role="dialog" aria-labelledby="uploadFormModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="uploadFormModalTitle">Upload Item Information</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <form id="itemUploadForm" enctype="multipart/form-data">
-                          <div class="modal-body">
-                            <div class="form-label-group">
-                              <input name="image" type="file" id="inputImage" accept="image/*" class="form-control" placeholder="Image" required autofocus>
-                              <label for="inputImage">Product Image</label>
-                            </div>
-                            <div class="form-label-group">
-                              <input name="name" type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
-                              <label for="inputName">Product Name</label>
-                            </div>
-                            <div class="form-group">
-                              <label for="inputDescription">Product Description</label>
-                              <textarea name="description" type="text" id="inputDescription" class="form-control" placeholder="Name" required autofocus>
-                              </textarea>
-                            </div>
-                            <div class="form-label-group">
-                              <input name="available_quantity" type="number" min="1" max="9999" step="1" id="inputQuantity" class="form-control" placeholder="Available Quantity" required autofocus>
-                              <label for="inputQuantity">Available Quantity</label>
-                            </div>
-                            <div class="form-label-group">
-                              <input name="price_taka" type="number" min="0.01" step="0.01" id="inputPrice" class="form-control" placeholder="Price (In Taka)" required autofocus>
-                              <label for="inputPrice">Price (in Taka)</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="categorySelect">Product Type</label>
-                                <select name="category" class="form-control" id="categorySelect"></select>
-                            </div>
-                          </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="button submit" class="btn btn-primary">Save changes</button>
-                        </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div class="align-items-center py-5">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">Welcome to E-Commerce! <span id="welcomeUsername">User</span></h3>
+              <button type="button" class="btn btn-primary d-none" id="uploadBtn" data-toggle="modal" data-target="#uploadFormModal">
+                Upload New Item
+              </button>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="container" id="orderContainer"></div>
+    <!-- Modal for form uplaod -->
+    <div class="modal fade" id="uploadFormModal" tabindex="-1" role="dialog" aria-labelledby="uploadFormModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="uploadFormModalTitle">Upload Item Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form id="itemUploadForm" enctype="multipart/form-data">
+            <div class="modal-body">
+              <div class="form-label-group">
+                <input name="image" type="file" id="inputImage" accept="image/*" class="form-control" placeholder="Image" required autofocus>
+                <label for="inputImage">Product Image</label>
+              </div>
+              <div class="form-label-group">
+                <input name="name" type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
+                <label for="inputName">Product Name</label>
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">Product Description</label>
+                <textarea name="description" type="text" id="inputDescription" class="form-control" placeholder="Name" required autofocus>
+                </textarea>
+              </div>
+              <div class="form-label-group">
+                <input name="available_quantity" type="number" min="1" max="9999" step="1" id="inputQuantity" class="form-control" placeholder="Available Quantity" required autofocus>
+                <label for="inputQuantity">Available Quantity</label>
+              </div>
+              <div class="form-label-group">
+                <input name="price_taka" type="number" min="0.01" step="0.01" id="inputPrice" class="form-control" placeholder="Price (In Taka)" required autofocus>
+                <label for="inputPrice">Price (in Taka)</label>
+              </div>
+              <div class="form-group">
+                <label for="categorySelect">Product Type</label>
+                <select name="category" class="form-control" id="categorySelect"></select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button submit" class="btn btn-primary">Upload</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -136,9 +131,40 @@
 
     <!--Mustache HTML Templates-->
     <script type="text/template" id="categorySelectTemplate">
-        {{#data}}
+      {{#data}}
             <option value="{{name}}">{{name}}</option>
-        {{/data}}
+      {{/data}}
+    </script>
+
+    <!--Template for order for buyer-->
+    <script type="text/template" id="buyerOrderTemplate">
+      <div class="row">
+        <h3> Invoice/Order History</h3>
+      </div>
+      {{#data}}
+        <div class="row">
+           <div class="col-6">
+              <h5>Order No. {{id}}</h4>
+           </div>
+           <div class="col-6 text-right">
+              <h6>Time: {{timestamp}}</h4>
+           </div>
+        </div>
+        {{#carts}}
+            <div class="row">
+              <div class="col-4">
+                  <h6>Product Name: {{product_name}}</h6>
+              </div>
+              <div class="col-4">
+                  <h6>Quantity: {{quantity}}</h6>
+              </div>
+              <div class="col-4 text-right">
+                  <h6>Total Price: {{total}} Tk</h6>
+              </div>
+            </div>
+        {{/carts}}
+        <h5>Order Total: {{order_total}} Tk</h5>
+      {{/data}}
     </script>
 
     <!-- Bootstrap core JavaScript -->

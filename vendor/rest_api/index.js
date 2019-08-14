@@ -79,7 +79,6 @@ var getCartData = function (){
             "Authorization": "Token " + Cookies.get('token'),
         },
         success: function (data, textStatus, jqXHR) {
-            console.log(data);
             //$('#cartButton').removeClass('d-none');
             result = data;
         },
@@ -116,10 +115,9 @@ $(document).ready(function(){
                 "Authorization": "Token " + Cookies.get('token'),
             },
             success: function (data, textStatus, jqXHR) {
-                console.log(data);
                 //getCartData();
                 setCartStatusInCookie(true);
-                //$productDetailsModal.modal('hide');
+                $productDetailsModal.modal('hide');
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -135,9 +133,7 @@ $(document).ready(function(){
         event.preventDefault();
 
         data = getCartData();
-        console.log(data);
         var idx = 1;
-        console.log(data);
         html = Mustache.to_html(cartTemplateHtml, {
             data: data.results,
             idx: function(){ return idx++; 
@@ -145,6 +141,30 @@ $(document).ready(function(){
         $('#cartDetailsModal').modal('show');
         $('#cartDetailModalBody').html(html);
     });
-});
 
+    // Checkout
+    $('#btnChkout').click(function(){
+        event.preventDefault();
+        $.ajax({
+            url: config.backend_url + "/orders/",
+            data: $(this).serialize(),
+            // dataType
+            method: "POST",
+            crossDomain: true,
+            headers: {
+                "Authorization": "Token " + Cookies.get('token'),
+            },
+            success: function (data, textStatus, jqXHR) {
+                console.log(data);
+                setCartStatusInCookie(false);
+                window.location.href = '/profile.html';
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("error");
+                console.log("textStatus: " + textStatus);
+                console.log("errorThrown: " + errorThrown);
+            },
+        });
+    })
+});
 
