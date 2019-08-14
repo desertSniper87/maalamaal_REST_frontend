@@ -2,10 +2,28 @@ let $itemUploadForm = $('#itemUploadForm');
 let $uploadBtn = $('#uploadBtn');
 let categorySelectTemplateHtml= $('#categorySelectTemplate').html();
 let $categorySelect = $('#categorySelect');
+let $buyerOrderTemplateHTML = $('#buyerOrderTemplate').html();
 
 $(document).ready(function(){
     if (account_type == "seller") {
         $uploadBtn.removeClass("d-none");
+    } else if (account_type == "buyer") {
+        // Query for order information
+        $.ajax({
+            url: config.backend_url + "/orders/",
+            method: "GET",
+            crossDomain: true,
+            success: function (data, textStatus, jqXHR) {
+                console.log(data);
+                html = Mustache.to_html($buyerOrderTemplateHTML, {data: data.results});
+                $('#orderContainer').html(html);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("error");
+                console.log("textStatus: " + textStatus);
+                console.log("errorThrown: " + errorThrown);
+            }
+        });
     }
 });
 
@@ -25,6 +43,10 @@ $uploadBtn.click(function(envent){
             console.log("errorThrown: " + errorThrown);
         }
     });
+
+});
+
+$(document).ready(function(){
 
 });
 
