@@ -1,3 +1,3 @@
 const config = {
-    backend_url : "http://maalamaal.pythonanywhere.com:8000"
+    backend_url : "http://maalamaal-rest-api.herokuapp.com/"
 };
