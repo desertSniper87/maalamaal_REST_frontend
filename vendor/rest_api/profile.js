@@ -17,7 +17,7 @@ $uploadBtn.click(function(envent){
         crossDomain: true,
         success: function (data, textStatus, jqXHR) {
             html = Mustache.to_html(categorySelectTemplateHtml, {data: data.results});
-            $categorySelect.append(html);
+            $categorySelect.html(html);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error");
@@ -78,6 +78,7 @@ $itemUploadForm.submit(function(event){
         },
         success: function (data, textStatus, jqXHR) {
             console.log("Success");
+            $('#uploadFormModal').modal('hide');
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error");
