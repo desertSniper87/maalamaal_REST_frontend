@@ -1,6 +1,31 @@
 let productCardTemplateHtml= $('#productCardTemplate').html();
 let cartTemplateHtml= $('#cartTemplate').html();
 let $productList = $('#productList');
+let $categoryList = $('#categoryList');
+let categoryListTemplateHtml= $('#categoryListTemplate').html();
+
+var queryForProduct = function(categoryID){
+  $.ajax({
+      url: config.backend_url + "/products/",
+      method: "GET",
+      crossDomain: true,
+      data: {category: categoryID},
+      success: function (data, textStatus, jqXHR) {
+          globalProductData = data.results;
+          html = Mustache.to_html(productCardTemplateHtml, {data: data.results});
+          $productList.html(html);
+          $('#loadingSpinner').hide();
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+          $('#loadingSpinner').hide();
+          $('#serverErrorMsg').show();
+          console.log("error");
+          console.log("textStatus: " + textStatus);
+          console.log("errorThrown: " + errorThrown);
+      },
+      timeout: 10000
+  });
+}
 
 // Query for products (and cart).
 $(document).ready(function(){
@@ -28,6 +53,26 @@ $(document).ready(function(){
         },
         timeout: 10000
     });
+
+    $.ajax({
+      url: config.backend_url + "/product_categories/",
+      method: "GET",
+      crossDomain: true,
+      success: function (data, textStatus, jqXHR) {
+        html = Mustache.to_html(categoryListTemplateHtml, {data: data.results});
+        $categoryList.html(html);
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("error");
+        console.log("textStatus: " + textStatus);
+        console.log("errorThrown: " + errorThrown);
+      }
+    });
+});
+
+$(document).on("click", ".categoryBtn", function(event){
+  event.preventDefault();
+  queryForProduct($(this).attr('value'));
 });
 
 let $productDetailsModal= $('#productDetailsModal');
