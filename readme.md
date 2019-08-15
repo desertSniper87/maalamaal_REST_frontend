@@ -1,12 +1,12 @@
-#### Sample Ecommerce site fronted
+### Sample Ecommerce site fronted
 
 This is a example frontend to [a Django REST ecommerce backend](https://github.com/desertSniper87/maalamaal_REST) made using html, jquery and mustache.
 
-Site is live at [netlify](https://maalamaal.netlify.com/)
+Site is live at [netlify](https://maalamaal.netlify.com/).
 
-##### How to run
+#### How to run
 
-###### Locally
+##### Locally
 
 The site is wholly static with all js and css included. Run a simple webserver using npm or python.
 
@@ -16,7 +16,11 @@ For example, make sure you have `simpleserver` installed and then `cd` into the 
 python3 -m http.server $PORT
 ```
 
-##### Todo (In order of Decreasing priority)
+##### In server
+
+This is a static site so put source root in any www/public-www facing folder in any server.
+
+#### Todo (In order of Decreasing priority)
 
 - [ ] Fix footer on all pages. 
 - [ ] Use a html template rendering engine.
@@ -27,9 +31,9 @@ python3 -m http.server $PORT
 ReadMe Last Updated: 2019-08-15, 17:28 BDT
 ```
 
-###### License
+#### License
 one line to give the program's name and a brief description
-Copyright © 2019 Torsho
+Copyright © 2019 Samidhya Sarker
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the "Software"),
