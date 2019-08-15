@@ -15,6 +15,10 @@ var queryForProduct = function(categoryID){
           html = Mustache.to_html(productCardTemplateHtml, {data: data.results});
           $productList.html(html);
           $('#loadingSpinner').hide();
+          if (account_type  == 'seller') {
+            console.log('Bullets dont work jon');
+            $('.card-footer').hide();
+          }
       },
       error: function (jqXHR, textStatus, errorThrown) {
           $('#loadingSpinner').hide();
