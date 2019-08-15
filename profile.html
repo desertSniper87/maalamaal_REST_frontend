@@ -22,7 +22,6 @@
   </head>
 
   <body>
-
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -165,6 +164,34 @@
         {{/carts}}
         <h5>Order Total: {{order_total}} Tk</h5>
       {{/data}}
+    </script>
+    <!--Card Template for seller product list-->
+    <script type="text/template" id="productCardTemplate">
+      {{#data.length}}
+        <div class="row"> 
+            <div class="col-3 mx-auto">
+              <h6>Uploaded Products</h6>
+            </div>
+        </div>
+      {{/data.length}}
+        <div class="row">
+        <div class="col-lg-9">
+            {{#data}}
+                <div class="col-lg-4 col-md-6 mb-4">
+                  <div class="card h-100 data-itemId={{id}}" >
+                    <a href="{{image}}"><img class="card-img-top" src="{{image}}" alt=""></a>
+                    <div class="card-body">
+                      <h4 data-itemId="{{id}}" class="card-title btnProductDetails">
+                        <h5 style="color: blue;">{{name}}</h5>
+                      </h4>
+                      <h5 class="cardPrice" value="{{price_taka}}">Taka {{price_taka}}</h5>
+                      <p class="card-text cardDesc" value="{{description}}">{{description}}</p>
+                    </div>
+                  </div>
+                </div>
+              {{/data}}
+         </div>
+        </div>
     </script>
 
     <!-- Bootstrap core JavaScript -->
