@@ -18,6 +18,7 @@ var queryForProduct = function(categoryID){
           if (Cookies.get('account_type')  == 'seller') {
             console.log('Bullets dont work jon');
             $('.card-footer').hide();
+          }
       },
       error: function (jqXHR, textStatus, errorThrown) {
           $('#loadingSpinner').hide();
