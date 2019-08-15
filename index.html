@@ -227,9 +227,12 @@
   <!--Miscellaneous-->
   <script src="js/rest_api/logout.js" type="text/javascript"></script>
   <script charset="utf-8">
-      if (account_type  == 'seller') {
-        $('.card-footer').hide();
-      }
+      $(document).ready(function(){
+          if (account_type  == 'seller') {
+            console.log('Bullets dont work jon');
+            $('.card-footer').hide();
+          }
+      });
   </script>
 
 </body>
