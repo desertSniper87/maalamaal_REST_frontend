@@ -1,3 +1,3 @@
 const config = {
-    backend_url : "http://maalamaal-rest-api.herokuapp.com"
+    backend_url : "https://maalamaal-rest-api.herokuapp.com"
 };
